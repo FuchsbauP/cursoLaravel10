@@ -18,22 +18,20 @@ class StoreUpdateSupport extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illinate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         $rules = [
-            //Preenchimento obrigatório, minimo de 3 caracteres e máximo de 255, único na tabela supports
-            'subject' => 'required | min:3 | max:255 | unique:supports',
+            'subject' => 'required| min:3 | max:255 | unique:supports',
             'body' => [
                 'required',
-                'min: 3',
-                'max: 10000'
+                'min:3',
+                'max:10000'
             ],
         ];
-        return $rules;
 
-        if ($this->method() === 'PUT') {
+        if ($this->method() == 'PUT') {
             $rules['subject'] = [
                 'required',
                 'min:3',
@@ -41,5 +39,7 @@ class StoreUpdateSupport extends FormRequest
                 Rule::unique('supports')->ignore($this->id)
             ];
         }
+
+        return $rules;
     }
 }

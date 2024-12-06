@@ -1,17 +1,20 @@
-<h1>Dúvida #{{ $support->id }}</h1>
+<h1 class="mb-4 text-2xl font-bold text-gray-800">Dúvida {{ $support->id }}</h1>
 
-@if ($errors->any)
-    @foreach ($errors->all() as $error)
-        {{ $error }}
-    @endforeach
+<!-- Mensagens de Erro -->
+@if ($errors->any())
+    <div class="mb-4 rounded bg-red-100 p-4 text-red-700">
+        <ul class="list-disc pl-5">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
 @endif
 
-<form action="{{ 'supports.update', $support->id }}">
-    @csrf()
+<!-- Formulário -->
+<form action="{{ route('supports.update', $support->id) }}" method="POST" class="rounded bg-white p-6 shadow-md">
     @method('PUT')
-    <input type="text" placeholder="Assunto" name="subject" value="{{ $support->subject }}">
-    <textarea name="body" cols="30" rows="5" placeholder="Descrição">
-    	{{ $support->body }}
-    </textarea>
-    <button type="submit">Enviar</button>
+    @include('admin.supports.partials.form', [
+        'support' => $support,
+    ])
 </form>

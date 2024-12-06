@@ -8,7 +8,7 @@
     <li>Descrição: {{ $support->body }}</li>
 </ul>
 
-<form action="{{ 'supports.destroy', $support->id }}">
+<form action="{{ route('supports.destroy', $support->id) }}" method="POST">
     @csrf()
     @method('DELETE')
     <button type="submit">Deletar</button>
