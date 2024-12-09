@@ -2,14 +2,14 @@
 
 namespace App\Repositories;
 
-use App\DTO\CreateSupportDTO;
-use App\DTO\UpdateSupportDTO;
+use App\DTO\Supports\CreateSupportDTO;
+use App\DTO\Supports\UpdateSupportDTO;
 use stdClass;
 
 interface SupportRepositoryInterface
 {
     // Paginação
-    public function paginante(
+    public function paginate(
         int $page = 1,
         int $totalPerPage = 15,
         string $filter = null

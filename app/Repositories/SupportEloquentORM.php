@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\DTO\CreateSupportDTO;
-use App\DTO\UpdateSupportDTO;
+use App\DTO\Supports\CreateSupportDTO;
+use App\DTO\Supports\UpdateSupportDTO;
 use App\Models\Support;
 use App\Repositories\SupportRepositoryInterface;
 use stdClass;
@@ -16,7 +16,7 @@ class SupportEloquentORM implements SupportRepositoryInterface
     ) {}
 
     // Paginação
-    public function paginante(
+    public function paginate(
         int $page = 1,
         int $totalPerPage = 15,
         string $filter = null
@@ -30,7 +30,7 @@ class SupportEloquentORM implements SupportRepositoryInterface
                 }
             })
             ->paginate($totalPerPage, ['*'], 'page', $page);
-        dd((new PaginationPresenter($result))->items());
+        // dd((new PaginationPresenter($result))->items());
         return new PaginationPresenter($result);
     }
 

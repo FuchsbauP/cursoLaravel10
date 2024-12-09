@@ -9,16 +9,20 @@
         <th></th>
     </thead>
     <tbody>
-        @foreach ($supports as $support)
-            <tr>
-                <td>{{ $support['subject'] }}</td>
-                <td>{{ $support['status'] }}</td>
-                <td>{{ $support['body'] }}</td>
-                <td>
-                    <a href="{{ route('supports.show', $support['id']) }}">Detalhar</a>
-                    <a href="{{ route('supports.edit', $support['id']) }}">Editar</a> {{-- Criar o link para chamar a rota "edit"; --}}
-                </td>
-            </tr>
-        @endforeach
+        @if ($supports instanceof \App\Repositories\PaginationPresenter)
+            @foreach ($supports->items() as $support)
+                <tr>
+                    <td>{{ $support->subject }}</td>
+                    <td>{{ getStatusSupport($support->status) }}</td>
+                    <td>{{ $support->body }}</td>
+                    <td>
+                        <a href="{{ route('supports.show', $support->id) }}">Detalhar</a>
+                        <a href="{{ route('supports.edit', $support->id) }}">Editar</a>
+                    </td>
+                </tr>
+            @endforeach
+        @endif
     </tbody>
 </table>
+
+<x-pagination :paginator="$supports" :appends="$filters" />
